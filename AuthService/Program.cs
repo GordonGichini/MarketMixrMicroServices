@@ -1,4 +1,7 @@
 using AuthService.Data;
+using AuthService.Models;
+using AuthService.Services;
+using AuthService.Services.IServices;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,7 +22,13 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 });
 
 // configure the Identity Framework
-builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+
+// Add Auto Mapper
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+// Our services
+builder.Services.AddScoped<IUser, UserService>();
 
 var app = builder.Build();
 
