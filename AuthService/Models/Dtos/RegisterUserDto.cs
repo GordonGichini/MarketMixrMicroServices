@@ -17,6 +17,6 @@ namespace AuthService.Models.Dtos
         [Required]
         public string PhoneNumber {  get; set; } = string.Empty;
 
-        public string? Role = string.Empty;
+        public string? Role { get; set; } = string.Empty;
     }
 }

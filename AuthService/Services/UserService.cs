@@ -14,19 +14,39 @@ namespace AuthService.Services
         private readonly IMapper _mapper;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IJwt _JwtServices;
 
         public UserService(ApplicationDbContext applicationDbContext, IMapper mapper, UserManager<ApplicationUser> userManager,
-            RoleManager<IdentityRole> roleManager)
+            RoleManager<IdentityRole> roleManager, IJwt jwtService)
         { 
             _context = applicationDbContext;
             _mapper = mapper;
             _userManager=userManager;
             _roleManager= roleManager;
+            _JwtServices=jwtService;
         }
            
-        public Task<bool> AssignUserRoles(string Email, string RoleName)
+        public async Task<bool> AssignUserRoles(string Email, string RoleName)
         {
-            throw new NotImplementedException();
+            var user = await _context.ApplicationUsers.Where(x => x.Email.ToLower() == Email.ToLower()).FirstOrDefaultAsync();
+            // user exist?
+            if(user == null)
+            {
+                return false;
+            }
+            else
+            {
+                //role exist?
+                if (!_roleManager.RoleExistsAsync(RoleName).GetAwaiter().GetResult())
+                {
+                    // create the role
+                    await _roleManager.CreateAsync(new IdentityRole(RoleName));
+                }
+
+                //assign user the role
+                await _userManager.AddToRoleAsync(user, RoleName);
+                return true;
+            }
         }
 
         public async Task<LoginResponseDto> loginUser(LoginRequestDto loginRequestDto)
@@ -36,15 +56,18 @@ namespace AuthService.Services
             // compare hashed password with plain text password
             var isValid = _userManager.CheckPasswordAsync(user, loginRequestDto.Password).GetAwaiter().GetResult();
 
-            if (!isValid || user == null)
+            if (!isValid || user == null) 
             {
                 return new LoginResponseDto();
             }
             var loggeduser = _mapper.Map<UserDto>(user);
+
+            var roles = await _userManager.GetRolesAsync(user);
+            var token = _JwtServices.GenerateToken(user, roles);
             var response = new LoginResponseDto()
             {
                 User = loggeduser,
-                Token = "Coming soon..."
+                Token = token
             };
             return response;
         }

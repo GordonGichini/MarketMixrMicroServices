@@ -12,10 +12,12 @@ namespace AuthService.Controllers
     {
         private readonly IUser _userService;
         private readonly ResponseDto _response;
+        private readonly IConfiguration _configuration;
 
-        public UserController(IUser user)
+        public UserController(IUser user, IConfiguration configuration)
         {
             _userService = user;
+            _configuration = configuration;
             _response = new ResponseDto();
         }
         [HttpPost("register")]
@@ -47,6 +49,22 @@ namespace AuthService.Controllers
             _response.IsSuccess = false;
             return BadRequest(_response);
 
+        }
+
+        [HttpPost("AssignRole")]
+        public async Task<ActionResult<ResponseDto>> AssignRole(RegisterUserDto registerUserDto)
+        {
+            var res = await _userService.AssignUserRoles(registerUserDto.Email, registerUserDto.Role);
+            if (res)
+            {
+                //success
+                _response.Result = res;
+                return Ok(_response);
+            }
+            _response.ErrorMessage = "Error Occurred ";
+            _response.Result = res;
+            _response.IsSuccess = false;
+            return BadRequest(_response);
         }
     }
 }

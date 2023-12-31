@@ -2,6 +2,7 @@ using AuthService.Data;
 using AuthService.Models;
 using AuthService.Services;
 using AuthService.Services.IServices;
+using AuthService.Utilities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,6 +30,10 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 // Our services
 builder.Services.AddScoped<IUser, UserService>();
+builder.Services.AddScoped<IJwt, JwtService>();
+
+//configure JWTOptions Class
+builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("JwtOptions"));
 
 var app = builder.Build();
 
