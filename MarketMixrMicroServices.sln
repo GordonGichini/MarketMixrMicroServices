@@ -5,7 +5,11 @@ VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthService", "AuthService\AuthService.csproj", "{CF4E7CC6-EFA6-41D7-8688-6D2C05359438}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CouponService", "CouponService\CouponService.csproj", "{C66FB15D-96E1-4AF6-88BC-C149E05013DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CouponService", "CouponService\CouponService.csproj", "{C66FB15D-96E1-4AF6-88BC-C149E05013DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailService", "MailService\MailService.csproj", "{8D1AFE29-89A3-447C-8670-0A6706035F59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketMixrMessageBus", "MarketMixrMessageBus\MarketMixrMessageBus.csproj", "{BAC49E6F-EFDD-4ED3-A50E-5B60208C988E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{C66FB15D-96E1-4AF6-88BC-C149E05013DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C66FB15D-96E1-4AF6-88BC-C149E05013DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C66FB15D-96E1-4AF6-88BC-C149E05013DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D1AFE29-89A3-447C-8670-0A6706035F59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D1AFE29-89A3-447C-8670-0A6706035F59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D1AFE29-89A3-447C-8670-0A6706035F59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D1AFE29-89A3-447C-8670-0A6706035F59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAC49E6F-EFDD-4ED3-A50E-5B60208C988E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAC49E6F-EFDD-4ED3-A50E-5B60208C988E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAC49E6F-EFDD-4ED3-A50E-5B60208C988E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAC49E6F-EFDD-4ED3-A50E-5B60208C988E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
