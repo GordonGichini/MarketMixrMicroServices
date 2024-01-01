@@ -1,4 +1,4 @@
-namespace MailService
+namespace RewardService
 {
     public class WeatherForecast
     {
