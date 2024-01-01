@@ -13,13 +13,13 @@ namespace OrderService.Services
     {
         private readonly ApplicationDbContext _context;
         private readonly IUser _userService;
-        private readonly IMessageBus _messageBUs;
+        private readonly IMessageBus _messageBus;
         public OrderServices(ApplicationDbContext context,
-            IUser user, IMessageBus messageBUs)
+            IUser user, IMessageBus messageBus)
         {
             _context = context;
             _userService = user;
-            _messageBUs = messageBUs;
+            _messageBus = messageBus;
         }
         public async Task<List<Orders>> GetAllOrders(Guid userId)
         {
@@ -141,7 +141,7 @@ namespace OrderService.Services
                         Email = user.Email
 
                     };
-                    await _messageBUs.PublishMessage(reward, "orderadded");
+                    await _messageBus.PublishMessage(reward, "orderadded");
                 }
 
                 return true;
