@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Logging;
 using RewardsService.Data;
 using RewardsService.Models;
-using RewardsService.Services.IServices;
+using RewardsService.Services.IServices;di
 
 namespace RewardsService.Services
 {

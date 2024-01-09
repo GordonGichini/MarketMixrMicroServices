@@ -20,6 +20,13 @@ namespace ProductService.Services
             return "Product Added Successfully";
         }
 
+        public async Task<string> DeleteProduct(Product product)
+        {
+            _context.Product.Remove(product);
+            await _context.SaveChangesAsync();
+            return "Product DEleted Successfully!";
+        }
+
         public async Task<List<ProductAndImagesResponseDto>> GetAllProducts()
         {
             return await _context.Product.Select(p => new ProductAndImagesResponseDto()
@@ -38,6 +45,12 @@ namespace ProductService.Services
         public async Task<Product> GetProduct(Guid Id)
         {
             return await _context.Product.Where(b => b.Id == Id).FirstOrDefaultAsync();
+        }
+
+        public async  Task<string> UpdateProduct()
+        {
+            await _context.SaveChangesAsync();
+            return "Product Updated Successfully"
         }
     }
 }

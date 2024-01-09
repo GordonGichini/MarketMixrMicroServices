@@ -10,5 +10,7 @@ namespace CouponService.Data
 
 
         public DbSet<Coupon> Coupons { get; set; }
+
+
     }
 }

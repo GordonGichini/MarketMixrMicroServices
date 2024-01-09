@@ -43,7 +43,7 @@ namespace ProductService.Controllers
 
         }
         [HttpGet("{Id}")]
-        public async Task<ActionResult<ResponseDto>> GetCoupon(Guid Id)
+        public async Task<ActionResult<ResponseDto>> GetProduct(Guid Id)
         {
             var product = await _productService.GetProduct(Id);
 
@@ -53,6 +53,44 @@ namespace ProductService.Controllers
                 return NotFound(_responseDto);
             }
             _responseDto.Result = product;
+            return Ok(_responseDto);
+
+        }
+
+        [HttpPut("{Id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<ResponseDto>> UpdateProduct(Guid Id, AddProductDto UProduct)
+        {
+            var product = await _productService.GetProduct(Id);
+
+            if (product == null)
+            {
+                _responseDto.Result = "Product Not found";
+                _responseDto.IsSuccess = false;
+                return NotFound(_responseDto);
+            }
+            _mapper.Map(UProduct, product);
+            var res = await _productService.UpdateProduct();
+            _responseDto.Result = res;
+            return Ok(_responseDto);
+        }
+
+
+
+        [HttpDelete("{Id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<ResponseDto>> DeleteProduct (Guid Id)
+        {
+            var product = await _productService.GetProduct(Id);
+
+            if (product == null)
+            {
+                _responseDto.Result = "Product Not found";
+                _responseDto.IsSuccess = false;
+                return NotFound(_responseDto);
+            }
+            var res = await _productService.DeleteProduct(product);
+            _responseDto.Result = res;
             return Ok(_responseDto);
 
         }

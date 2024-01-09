@@ -8,5 +8,8 @@ namespace ProductService.Services.IServices
         Task<List<ProductAndImagesResponseDto>> GetAllProducts();
         Task<Product> GetProduct(Guid Id);
         Task<string> AddNewProduct(Product product);
+        Task<string> UpdateProduct();
+        Task<string> DeleteProduct(Product product);
+
     }
 }
